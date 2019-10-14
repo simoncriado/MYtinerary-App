@@ -8,11 +8,32 @@ class Cities extends Component {
     componentDidMount() {
         this.props.fetchCities()
     }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            searchInput: ""
+        }
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            searchInput: e.target.value
+        })
+        // this.props.onChange(event.target.value)
+    }
+
     render() {
-        const cities = this.props.cities.payload;
+        const cities = this.props.cities.payload.filter(
+            (city) => {
+                return city.name.toLowerCase().startsWith(this.state.searchInput.toLowerCase());
+            }
+        );
 
         return (
             <div className="button">
+                <input className="eachButton" type="text" value={this.state.searchInput} onChange={this.handleChange} />
+
                 {cities.map((city) =>
                     <button className="eachButton" key={city._id}>
                         <Link to={"/itineraries/" + city.name}>{city.name}</Link>

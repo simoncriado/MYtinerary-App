@@ -12,7 +12,6 @@ export default function citiesReducer(state = initState, action) {
                 isLoading: true
             };
         case "FETCH_CITIES_SUCCESS":
-            console.log(action.cities)
             return {
                 ...state,
                 payload: action.cities,
